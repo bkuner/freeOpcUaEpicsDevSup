@@ -642,7 +642,7 @@ long OpcUaReadItems(OPCUA_ItemINFO* pOPCUA_ItemINFO)
         errlogPrintf( "%s:\tOpcUaReadItems\n",pOPCUA_ItemINFO->prec->name);
     try {
         OpcUa::Node node = getNode(pOPCUA_ItemINFO);
-        OpcUa::DataValue val = node.GetAttributeAsDataValue(AttributeId::Value);
+        OpcUa::DataValue val = node.GetAttribute(AttributeId::Value);
         setTimestamp(prec,val.ServerTimestamp); // it's OPC-server time
         setRecVal(val,pOPCUA_ItemINFO);
     }

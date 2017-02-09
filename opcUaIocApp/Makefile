@@ -9,7 +9,7 @@ CROSS_COMPILER_TARGET_ARCHS=
 
 STATIC_BUILD = YES
 
-DB = OPCUA_RECORD.db Softing.db ibh_ua.db
+DB = freeopcuaTEST.db
 
 IOCS+= OPCUAIOC
 
@@ -32,17 +32,15 @@ opcUa_OBJS = $(LIBOBJS)
 
 ###
 
-FREEOPCUA_PATH =/opt/freeopcua
-
 USR_CFLAGS += -std=c1x -ggdb
 USR_CXXFLAGS += -ggdb -std=c++11
 USR_SYS_LIBS += dl pthread xml2 boost_system 
 USR_SYS_LIBS += opcuaclient opcuaprotocol opcuacore
-USR_LDFLAGS  += -L$(FREEOPCUA_PATH)/lib
+USR_LDFLAGS  += -L$(FREEOPCUA)/.libs
 
-USR_INCLUDES += -I$(FREEOPCUA_PATH)/include
+USR_INCLUDES += -I$(FREEOPCUA)/include
 USR_INCLUDES += -I/usr/include/libxml2
-
+USR_LDFLAGS += '-Wl,-rpath,$(FREEOPCUA)/.libs'
 ###
 
 INSTALL_BOOT =$(TOP)/iocBoot
@@ -53,14 +51,8 @@ STCMD_INSTALLS = $(IOCS:%=$(INSTALL_BOOT)/ioc%/st.cmd)
 Standard_DBD += base.dbd
 #Standard_DBD += caPutLog.dbd
 Standard_DBD += iocshGlobalCommands.dbd
-#Standard_DBD += devDistVersion.dbd
-#Standard_DBD += devIocStats.dbd
-#Standard_DBD += devTimestampWorkaround.dbd
 
 #Standard_LIBS += caPutLog
-#Standard_LIBS += devDistVersion
-#Standard_LIBS += devIocStats
-#Standard_LIBS += devTimestampWorkaround
 
 # IOC specific definitions go here
 

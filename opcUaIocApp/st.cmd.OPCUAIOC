@@ -1,7 +1,7 @@
-#!../../bin/linux-x86/OPCUAIOC
+#!../../bin/linux-x86_64/OPCUAIOC
 
 # Change to top directory
-cd ..
+cd ../..
 
 ################## Set up Environment ######################################### 
 
@@ -13,16 +13,13 @@ ${IOC}_registerRecordDeviceDriver pdbbase
 
 ################### Configure drivers ######################################### 
 
-drvOpcUaSetup("opc.tcp://193.149.12.196:48010")
-#drvOpcUaSetup("opc.tcp://hazel.acc.bessy.de:4880/Softing")
-#drvOpcUaSetup("opc.tcp://cray.acc.bessy.de:4980/Softing dataFEED OPC Suite Configuration 1")
+# local server from freeOpcUaEpicsDevSup project
+drvOpcUaSetup("opc.tcp://hazel.acc.bessy.de:4841","","hazel",0)
 
 ################### Load Databases ############################################ 
 
 # Load IOC System Stats database (flat)
-dbLoadRecords "db/ibh_ua.db"
-#dbLoadRecords "db/Softing.db"
-#dbLoadRecords "db/OPCUA_RECORD.db"
+dbLoadRecords "db/freeopcuaTEST.db"
 
 
 ################### Configure IOC Core ######################################## 
