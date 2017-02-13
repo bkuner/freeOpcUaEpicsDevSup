@@ -194,11 +194,23 @@ int main(int argc, char** argv)
     int verbose = 0;
     int epics = 0;
     int c;
-
+    const char help[] = "testServer [OPTIONS]\n"
+    "-h:   show help\n"
+    "-n N: number of opcua items for ManyObjects (1000)\n"
+    "-t N: Update time (1000ms)\n"
+    "-e:   create testServer.db file for ManyObjects\n"
+    "Test variables:\n"
+    "  NewObject.MyStringVar\n"
+    "  NewObject.MyVariable\n"
+    "  NewObject.MyProperty\n"
+    "  NewObject.MyArrayVar\n"
+    "  NewObject.MyBool\n"
+    "  ManyObjects.var1 ... ManyObjects.varN\n";
+    
     opterr = 0;
 
 
-    while ((c = getopt (argc, argv, "ev:t:n:")) != -1)
+    while ((c = getopt (argc, argv, "hev:t:n:")) != -1)
     switch (c)
     {
         case 'n':
@@ -212,6 +224,10 @@ int main(int argc, char** argv)
             break;
         case 'e':
             epics=1;
+            break;
+        case 'h':
+            printf("%s",help);
+            exit(0);
             break;
     }
     std::cout << "Create ManyObjects:var1 to ManyObjects:var"<<nrOfObjects<<std::endl;
